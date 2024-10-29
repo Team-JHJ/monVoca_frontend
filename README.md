@@ -1,3 +1,2 @@
 # monVoca
-<hr>
 Vocabulary notebook
