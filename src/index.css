@@ -71,6 +71,11 @@
 /*  }*/
 /*}*/
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 /* Pretendard 폰트 */
 @layer base {
     @font-face {
@@ -179,5 +184,9 @@
         url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff') format('woff'),
         url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf') format("truetype");
         font-display: swap;
+    }
+
+    body {
+        @apply w-full overflow-x-hidden;
     }
 }
