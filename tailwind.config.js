@@ -4,7 +4,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Pretendard', 'sans-serif'],
+                sans: ['Pretendard-Regular', 'sans-serif'],
             },
         },
     },
