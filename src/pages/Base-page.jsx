@@ -7,7 +7,7 @@ export default function BasePage() {
             <div className="relative flex h-screen w-full max-w-md flex-col">
                 <Header />
                 <div className="h-full overflow-hidden bg-[#EFF6FF] p-4">
-                    <div className="h-full w-full overflow-y-auto bg-amber-200">
+                    <div className="h-full w-full rounded-2xl bg-white">
                         <Outlet />
                     </div>
                 </div>
