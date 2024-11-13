@@ -11,6 +11,7 @@ import {
 import { AiOutlineHome } from 'react-icons/ai'
 import { GrHomeRounded } from 'react-icons/gr'
 import { IoArrowBack } from 'react-icons/io5'
+import { HiArrowLeft } from 'react-icons/hi2'
 
 export default function NoteListPage() {
     const navigate = useNavigate()
@@ -46,8 +47,16 @@ export default function NoteListPage() {
             <div className="relative flex h-screen w-full max-w-md flex-col bg-white">
                 <div className="flex h-20 items-center justify-between px-4">
                     {/*<FontAwesomeIcon icon={faArrowLeft} className="h-2/3" />*/}
-                    <IoArrowBack size={45} onClick={() => navigate(-1)} />
-                    <GrHomeRounded size={40} />
+                    <HiArrowLeft
+                        size={35}
+                        className="cursor-pointer"
+                        onClick={() => navigate(-1)}
+                    />
+                    <GrHomeRounded
+                        size={25}
+                        className="cursor-pointer"
+                        onClick={() => navigate('/')}
+                    />
                 </div>
                 <div className="flex flex-1 flex-col justify-between overflow-hidden px-4">
                     <div className="flex h-1/4 items-center justify-center">
