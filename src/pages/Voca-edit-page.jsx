@@ -37,7 +37,7 @@ export default function VocaEditPage() {
 
     return (
         <div className="flex h-full w-full flex-col p-4">
-            <div className="flex h-16 items-stretch justify-between pb-4">
+            <div className="flex h-20 items-stretch justify-between pb-8">
                 <div className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]">
                     <FontAwesomeIcon
                         className="h-2/3 select-none"
@@ -51,13 +51,15 @@ export default function VocaEditPage() {
                     />
                 </div>
             </div>
-            <div className="no-scrollbar flex flex-1 flex-col gap-y-4 overflow-y-auto">
+            <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-y-auto">
                 {exampleObj.map((item, index) => (
                     <div key={index} className="relative w-full text-2xl">
                         <div
-                            className={`relative z-10 flex h-16 items-center justify-between bg-[#CCE1FE] px-4 ${isOpen[index] ? 'rounded-t' : 'rounded'}`}
+                            className={`relative z-10 flex h-16 items-center justify-between bg-[#CCE1FE] px-4 ${isOpen[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         >
-                            <p className="">{item.word}</p>
+                            <p className="font-bold text-[#1D40B0]">
+                                {item.word}
+                            </p>
                             {
                                 <FontAwesomeIcon
                                     className="h-2/3 cursor-pointer select-none"
@@ -74,7 +76,7 @@ export default function VocaEditPage() {
                             }
                         </div>
                         <div
-                            className={`overflow-hidden rounded-b border-2 border-t-0 border-[#F5F5F5] px-4 ease-in-out ${!isOpen[index] ? 'invisible h-0 opacity-0' : 'visible h-auto opacity-100 transition-transform duration-500'}`}
+                            className={`duration-800 overflow-hidden rounded-b-lg border-2 border-t-0 border-[#F5F5F5] px-4 transition-transform ${!isOpen[index] ? 'invisible h-0 -translate-y-12 opacity-0' : 'visible h-auto translate-y-0 opacity-100'}`}
                         >
                             <div className="flex justify-between py-4">
                                 <div className="mr-2">{item.definition}</div>
