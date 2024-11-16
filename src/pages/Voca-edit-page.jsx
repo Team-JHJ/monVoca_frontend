@@ -7,21 +7,60 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faImage } from '@fortawesome/free-regular-svg-icons'
 import { LuPencil } from 'react-icons/lu'
+import { useNavigate } from 'react-router-dom'
 
 export default function VocaEditPage() {
+    const navigate = useNavigate()
     const exampleObj = [
         {
+            id: 1,
             word: '영어1',
             definition: '뜻1',
             example: '예문1',
             note: '메모장',
         },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
-        { word: '영어2', definition: '뜻2', example: '예문2', note: '메모장' },
+        {
+            id: 2,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
+        {
+            id: 3,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
+        {
+            id: 4,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
+        {
+            id: 5,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
+        {
+            id: 6,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
+        {
+            id: 7,
+            word: '영어2',
+            definition: '뜻2',
+            example: '예문2',
+            note: '메모장',
+        },
     ]
 
     const [isOpen, setIsOpen] = useState(
@@ -38,7 +77,12 @@ export default function VocaEditPage() {
     return (
         <div className="flex h-full w-full flex-col p-4">
             <div className="flex h-20 items-stretch justify-between pb-8">
-                <div className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]">
+                <div
+                    className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
+                    onClick={() => {
+                        navigate('/add-word')
+                    }}
+                >
                     <FontAwesomeIcon
                         className="h-2/3 select-none"
                         icon={faPlus}
@@ -76,13 +120,18 @@ export default function VocaEditPage() {
                             }
                         </div>
                         <div
-                            className={`duration-800 overflow-hidden rounded-b-lg border-2 border-t-0 border-[#F5F5F5] px-4 transition-transform ${!isOpen[index] ? 'invisible h-0 -translate-y-12 opacity-0' : 'visible h-auto translate-y-0 opacity-100'}`}
+                            className={`overflow-hidden rounded-b-lg border-2 border-t-0 border-[#F5F5F5] px-4 transition-transform duration-500 ${!isOpen[index] ? 'invisible h-0 -translate-y-12 opacity-0' : 'visible h-auto translate-y-0 opacity-100'}`}
                         >
                             <div className="flex justify-between py-4">
                                 <div className="mr-2">{item.definition}</div>
                                 <LuPencil
                                     size={28}
                                     className="cursor-pointer"
+                                    onClick={() =>
+                                        navigate('/edit-word', {
+                                            state: item.id,
+                                        })
+                                    }
                                 />
                             </div>
                             <div className="py-4">{item.example}</div>

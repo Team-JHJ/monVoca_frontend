@@ -207,4 +207,13 @@
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }
+
+    .text-input {
+        @apply h-16 border-2 border-[#E5E7EB] rounded-lg px-2 text-lg;
+    }
+
+    .submit-btn {
+        @apply h-12 bg-[#3C82F6] px-10 rounded-lg text-white font-semibold text-lg;
+    }
 }
+

@@ -67,9 +67,10 @@ export default function NoteListPage() {
                             {note.map((note, index) => (
                                 <div
                                     key={index}
-                                    className="flex aspect-square w-5/12 cursor-pointer flex-col items-center justify-center text-xl"
+                                    className="group flex aspect-square w-5/12 cursor-pointer flex-col items-center justify-center text-xl"
+                                    onClick={() => navigate('/voca-edit')}
                                 >
-                                    <div className="mb-1 h-fit w-3/4 rounded-xl bg-[#D8E9FE] p-2 hover:bg-[#3C82F6]">
+                                    <div className="mb-1 h-fit w-3/4 rounded-xl bg-[#D8E9FE] p-2 group-hover:bg-[#3C82F6]">
                                         <FontAwesomeIcon
                                             icon={faFolder}
                                             className="h-full w-full"

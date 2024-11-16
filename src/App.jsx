@@ -5,6 +5,8 @@ import MainPage from '@/pages/main-page.jsx'
 import MainScreen from '@/pages/Main-Screen.jsx'
 import NoteListPage from '@/pages/Note-list-page.jsx'
 import VocaEditPage from '@/pages/Voca-edit-page.jsx'
+import VocaAddPage from '@/pages/Voca-add-page.jsx'
+import VocaLearningPage from '@/pages/Voca-learning-page.jsx'
 
 const router = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
             {
                 path: '/voca-edit',
                 element: <VocaEditPage />,
+            },
+            {
+                path: '/add-word',
+                element: <VocaAddPage />,
+            },
+            {
+                path: '/edit-word',
+                element: <VocaAddPage />,
             },
         ],
     },
