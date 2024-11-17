@@ -7,6 +7,8 @@ import NoteListPage from '@/pages/Note-list-page.jsx'
 import VocaEditPage from '@/pages/Voca-edit-page.jsx'
 import VocaAddPage from '@/pages/Voca-add-page.jsx'
 import VocaLearningPage from '@/pages/Voca-learning-page.jsx'
+import FlashcardChoicePage from '@/pages/Flashcard-choice-page.jsx'
+import VocaFlashcardPage from '@/pages/Voca-flashcard-page.jsx'
 
 const router = createBrowserRouter([
     {
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/voca-learning',
                 element: <VocaLearningPage />,
+            },
+            {
+                path: '/flashcard-choice',
+                element: <FlashcardChoicePage />,
             },
         ],
     },

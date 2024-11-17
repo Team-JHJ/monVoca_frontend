@@ -36,9 +36,9 @@ export default function MainPage() {
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
                                 <Link
                                     to="/note-list"
-                                    state={{ choice: '카드단어' }}
+                                    state={{ choice: '단어카드' }}
                                 >
-                                    카드 단어보기
+                                    단어 카드보기
                                 </Link>
                             </div>
                         </div>

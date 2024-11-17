@@ -48,7 +48,9 @@ export default function NoteListPage() {
             navigate('/voca-edit')
         } else if (choice === '전체단어') {
             navigate('/voca-learning')
-        } else if (choice === '카드단어') {
+        } else if (choice === '단어카드') {
+            navigate('/flashcard-choice')
+        } else {
             navigate('/')
         }
     }
