@@ -8,7 +8,7 @@ export default function Header({ text }) {
     const navigate = useNavigate()
 
     return (
-        <div className="sticky top-0 flex h-20 w-full items-center justify-between bg-blue-500 px-5 text-white">
+        <div className="sticky top-0 flex h-20 w-full items-center justify-between bg-[#3C82F6] px-5 text-white">
             <HiArrowLeft
                 size={35}
                 className="cursor-pointer"

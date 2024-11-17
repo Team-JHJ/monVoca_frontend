@@ -47,6 +47,10 @@ const router = createBrowserRouter([
                 path: '/flashcard-choice',
                 element: <FlashcardChoicePage />,
             },
+            {
+                path: '/voca-flashcard',
+                element: <VocaFlashcardPage />,
+            },
         ],
     },
     {

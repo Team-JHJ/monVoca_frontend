@@ -217,5 +217,35 @@
     .submit-btn {
         @apply h-12 bg-[#3C82F6] px-10 rounded-lg text-white font-semibold text-lg;
     }
+
+    /* 플래시 카드 */
+    .flash-card {
+        backface-visibility: hidden;
+        background: #E5E7EB;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+    }
+
+    /* 플래시 카드 앞면 */
+    .front {
+        transform: rotateY(0deg);
+    }
+
+    /* 플래시 카드 앞면이 뒤로 */
+    .front-back {
+        transform: rotateY(180deg);
+    }
+
+    /* 플래시 카드 뒷면 */
+    .back {
+        transform: rotateY(-180deg);
+    }
+
+    /* 플래시 카드 뒷면이 앞으로 */
+    .back-front {
+        transform: rotateY(0deg);
+    }
 }
 
