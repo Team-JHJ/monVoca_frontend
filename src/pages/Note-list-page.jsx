@@ -2,7 +2,7 @@ import logo from '@/assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
     faArrowLeft,
     faChevronLeft,
@@ -15,6 +15,7 @@ import { HiArrowLeft } from 'react-icons/hi2'
 
 export default function NoteListPage() {
     const navigate = useNavigate()
+    const choice = useLocation().state.choice
     const note = [
         {
             id: 1,
@@ -42,6 +43,16 @@ export default function NoteListPage() {
         },
     ]
 
+    const navigatePage = () => {
+        if (choice === '단어관리') {
+            navigate('/voca-edit')
+        } else if (choice === '전체단어') {
+            navigate('/voca-learning')
+        } else if (choice === '카드단어') {
+            navigate('/')
+        }
+    }
+
     return (
         <div className="flex min-h-screen justify-center bg-gray-200">
             <div className="relative flex h-screen w-full max-w-md flex-col bg-white">
@@ -68,7 +79,7 @@ export default function NoteListPage() {
                                 <div
                                     key={index}
                                     className="group flex aspect-square w-5/12 cursor-pointer flex-col items-center justify-center text-xl"
-                                    onClick={() => navigate('/voca-edit')}
+                                    onClick={() => navigatePage()}
                                 >
                                     <div className="mb-1 h-fit w-3/4 rounded-xl bg-[#D8E9FE] p-2 group-hover:bg-[#3C82F6]">
                                         <FontAwesomeIcon

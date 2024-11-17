@@ -37,6 +37,10 @@ const router = createBrowserRouter([
                 path: '/edit-word',
                 element: <VocaAddPage />,
             },
+            {
+                path: '/voca-learning',
+                element: <VocaLearningPage />,
+            },
         ],
     },
     {

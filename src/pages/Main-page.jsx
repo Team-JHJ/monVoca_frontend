@@ -18,13 +18,28 @@ export default function MainPage() {
                         <p className="mb-1 text-4xl font-medium">단어</p>
                         <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0]">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                <Link to="/note-list">단어장 관리하기</Link>
+                                <Link
+                                    to="/note-list"
+                                    state={{ choice: '단어관리' }}
+                                >
+                                    단어장 관리하기
+                                </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                <Link to="/note-list">전체 단어보기</Link>
+                                <Link
+                                    to="/note-list"
+                                    state={{ choice: '전체단어' }}
+                                >
+                                    전체 단어보기
+                                </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                <Link to="/note-list">카드 단어보기</Link>
+                                <Link
+                                    to="/note-list"
+                                    state={{ choice: '카드단어' }}
+                                >
+                                    카드 단어보기
+                                </Link>
                             </div>
                         </div>
                     </div>

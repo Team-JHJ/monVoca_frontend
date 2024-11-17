@@ -76,7 +76,7 @@ export default function VocaEditPage() {
 
     return (
         <div className="flex h-full w-full flex-col p-4">
-            <div className="flex h-20 items-stretch justify-between pb-8">
+            <div className="flex h-20 justify-between pb-8">
                 <div
                     className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
                     onClick={() => {
