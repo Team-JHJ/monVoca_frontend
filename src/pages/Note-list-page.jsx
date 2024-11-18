@@ -50,6 +50,12 @@ export default function NoteListPage() {
             navigate('/voca-learning')
         } else if (choice === '단어카드') {
             navigate('/flashcard-choice')
+        } else if (choice === '학습진단') {
+            navigate('/')
+        } else if (choice === '예문학습') {
+            navigate('/')
+        } else if (choice === '단어선택') {
+            navigate('/')
         } else {
             navigate('/')
         }

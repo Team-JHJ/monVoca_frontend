@@ -235,12 +235,12 @@
 
     /* 플래시 카드 앞면이 뒤로 */
     .front-back {
-        transform: rotateY(180deg);
+        transform: rotateY(-180deg);
     }
 
     /* 플래시 카드 뒷면 */
     .back {
-        transform: rotateY(-180deg);
+        transform: rotateY(180deg);
     }
 
     /* 플래시 카드 뒷면이 앞으로 */

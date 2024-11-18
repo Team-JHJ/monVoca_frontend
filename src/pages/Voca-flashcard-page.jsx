@@ -5,26 +5,114 @@ import {
     faCircleChevronLeft,
     faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from 'react'
 
 export default function VocaFlashcardPage() {
     const choice = useLocation().state
 
+    const [vocaList, setVocaList] = useState([
+        {
+            id: 1,
+            word: '영단어1',
+            meaning: '뜻1',
+            example: '',
+            memo: '메모1',
+        },
+        {
+            id: 2,
+            word: '영단어2',
+            meaning: '뜻2',
+            example: '예문2',
+            memo: '메모2',
+        },
+        {
+            id: 3,
+            word: '영단어3',
+            meaning: '뜻3',
+            example: '예문3',
+            memo: '메모3',
+        },
+        {
+            id: 4,
+            word: '영단어4',
+            meaning: '뜻4',
+            example: '예문4',
+            memo: '메모4',
+        },
+        {
+            id: 5,
+            word: '영단어5',
+            meaning: '뜻5',
+            example: '예문5',
+            memo: '메모5',
+        },
+        {
+            id: 6,
+            word: '영단어6',
+            meaning: '뜻6',
+            example: '예문6',
+            memo: '메모6',
+        },
+        {
+            id: 7,
+            word: '영단어7',
+            meaning: '뜻7',
+            example: '예문7',
+            memo: '메모7',
+        },
+    ])
+    const [voca, setVoca] = useState({})
+    const [listIndex, setListIndex] = useState(0)
+
+    const nextVoca = () => {
+        setListIndex((prev) => (prev + 1) % vocaList.length)
+    }
+
+    const prevVoca = () => {
+        setListIndex((prev) => (prev <= 0 ? vocaList.length - 1 : prev - 1))
+    }
+
+    const getVoca = async () => {
+        setVoca(vocaList[listIndex])
+    }
+
+    useEffect(() => {
+        getVoca()
+    }, [])
+
+    useEffect(() => {
+        getVoca()
+    }, [listIndex])
+
     return (
         <div className="flex h-full w-full flex-col overflow-hidden p-4">
             <div className="no-scrollbar flex h-full items-center overflow-y-auto">
-                <FlashCard />
+                <FlashCard
+                    choice={choice}
+                    id={voca.id}
+                    word={voca.word}
+                    meaning={voca.meaning}
+                    example={voca.example}
+                    memo={voca.memo}
+                />
             </div>
             <div className="flex h-24 items-center justify-between py-3">
                 <FontAwesomeIcon
                     icon={faCircleChevronLeft}
-                    className="h-full cursor-pointer"
-                    style={{ color: '#3C82F6' }}
+                    className="h-full cursor-pointer text-[#3C82F6] hover:text-[#2563EB]"
+                    onClick={() => {
+                        prevVoca()
+                    }}
                 />
-                <div className="text-2xl font-bold">1 / 10</div>
+                <div className="text-2xl font-bold">
+                    {listIndex + 1} / {vocaList.length}
+                </div>
                 <FontAwesomeIcon
                     icon={faCircleChevronRight}
-                    className="h-full cursor-pointer"
-                    style={{ color: '#3C82F6' }}
+                    className="h-full cursor-pointer text-[#3C82F6] hover:text-[#2563EB]"
+                    onClick={() => {
+                        nextVoca()
+                    }}
                 />
             </div>
         </div>

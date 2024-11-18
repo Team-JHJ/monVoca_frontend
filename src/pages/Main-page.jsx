@@ -47,13 +47,19 @@ export default function MainPage() {
                         <p className="mb-1 text-4xl font-medium">복습</p>
                         <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0]">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                O, X 자가진단
+                                <Link to="" state={{ choice: '학습진단' }}>
+                                    O, X 자가진단
+                                </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                예문 빈칸학습
+                                <Link to="" state={{ choice: '예문학습' }}>
+                                    예문 빈칸학습
+                                </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                단어 선택하기
+                                <Link to="" state={{ choice: '단어선택' }}>
+                                    단어 선택하기
+                                </Link>
                             </div>
                         </div>
                     </div>
