@@ -2,23 +2,31 @@ import axiosInstance from '@/api/axios.js'
 
 const detail = {
     // 단어장 내 단어 리스트 가져오기
-    getDetail: (userId, noteId) => {
-        return axiosInstance.get(`/getDetails/${userId}/${noteId}`)
+    getDetail: (userName, noteId) => {
+        return axiosInstance.get(`/getDetails/${userName}/${noteId}`)
     },
 
     // 단어장 내 단어 추가하기
-    createDetail: (userId, noteId, detail) => {
-        return axiosInstance.post(`/createDetail/${userId}/${noteId}`, {
-            noteId,
+    createDetail: (userName, noteId, detail) => {
+        return axiosInstance.post(`/createDetail/${userName}/${noteId}`, {
             ...detail,
         })
     },
 
     // 단어쟝 내 단어 내용 수정하기
-    updateDetail: () => {},
+    updateDetail: (userName, detail) => {
+        return axiosInstance.put(
+            `/updateDetail/${userName}/${detail.noteId}/${detail.detailId}`,
+            { ...detail },
+        )
+    },
 
     // 단어장 내 단어 삭제하기
-    deleteDetail: () => {},
+    deleteDetail: (userName, noteId, detailId) => {
+        return axiosInstance.delete(
+            `/deleteDetail/${userName}/${noteId}/${detailId}`,
+        )
+    },
 }
 
 export default detail

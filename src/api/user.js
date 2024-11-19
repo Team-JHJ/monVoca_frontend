@@ -2,14 +2,14 @@ import axiosInstance from '@/api/axios.js'
 
 const user = {
     // 사용자 정보 가져오기
-    getUser: (userId) => {
-        return axiosInstance.get(`/getUser/${userId}`)
+    getUser: (userName) => {
+        return axiosInstance.get(`/getUser/${userName}`)
     },
 
     // 사용자 생성하기
-    createUser: (userId, userPassword, userEmail) => {
+    createUser: (userName, userPassword, userEmail) => {
         return axiosInstance.post('/createUser', {
-            userId,
+            userName,
             userPassword,
             userEmail,
         })

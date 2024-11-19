@@ -2,13 +2,13 @@ import axiosInstance from '@/api/axios.js'
 
 const note = {
     // 단어장 리스트 가져오기
-    getNote: (userId) => {
-        return axiosInstance.get(`getNotes/${userId}`)
+    getNote: (userName) => {
+        return axiosInstance.get(`getNotes/${userName}`)
     },
 
     // 단어장 추가하기
-    createNote: (userId, title) => {
-        return axiosInstance.post(`createNote`, { userId, title })
+    createNote: (userName, title) => {
+        return axiosInstance.post(`createNote`, { userName, title })
     },
 
     // 단어쟝 이름 수정하기
