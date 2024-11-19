@@ -221,10 +221,7 @@
     /* 플래시 카드 */
     .flash-card {
         backface-visibility: hidden;
-        background: #E5E7EB;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background: #DBE9FE;
         border-radius: 8px;
     }
 

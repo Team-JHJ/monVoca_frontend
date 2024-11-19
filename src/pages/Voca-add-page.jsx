@@ -1,13 +1,24 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import detail from '@/api/detail.js'
+import { useSelector } from 'react-redux'
 
 export default function VocaAddPage() {
+    const navigate = useNavigate()
     const location = useLocation()
     const path = location.pathname
-    // console.log(path)
-    const id = location.state
+    let noteId = location.state.noteId
+    if (path !== '/edit-word') {
+        noteId = location.state
+    }
+    console.log(noteId)
+    // if
+    // const item = location.state.item
+    const userName = useSelector((state) => state.userSlice.userName)
+    // console.log(noteId)
+    // console.log(item)
+    // console.log(id)
     const [input, setInput] = useState({
-        id,
         word: '',
         meaning: '',
         example: '',
@@ -26,18 +37,68 @@ export default function VocaAddPage() {
         setInput(data)
     }
 
+    const createDetail = async () => {
+        try {
+            const response = await detail.createDetail(userName, noteId, input)
+            console.log(response.status)
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+        }
+    }
+
+    const updateDetail = async () => {
+        try {
+            const response = await detail.updateDetail(userName, input)
+            console.log(response.status)
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+        }
+    }
+
+    const deleteDetail = async () => {
+        try {
+            const response = await detail.deleteDetail(
+                userName,
+                noteId,
+                location.state.item.id,
+            )
+            console.log(response.status)
+            navigate('/voca-edit', { state: noteId })
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+        }
+    }
+
     const submitData = (e) => {
         // e.preventDefault()
-        if (id) {
-            // 아이디가 있으면 단어 수정 처리
+        if (input.detailId) {
+            // 아이디가 있으면 단어 수정 요청
+            updateDetail()
+            navigate('/voca-edit', { state: noteId })
         } else {
-            // 아이디가 없으면 단어 추가 처리
+            // 아이디가 없으면 단어 추가 요청
+            createDetail()
+            // navigate(-2)
+            navigate('/voca-edit', { state: noteId })
         }
     }
 
     useEffect(() => {
+        // 단어를 수정하는 경우 기존 저장 내용이 보이도록 설정
         if (path === '/edit-word') {
-            const data = { id, word, meaning, example, memo }
+            const item = location.state.item
+            const data = {
+                userName: userName,
+                noteId: noteId,
+                detailId: item.id,
+                word: item.word,
+                meaning: item.meaning,
+                example: item.example,
+                memo: item.memo,
+            }
             setInput(data)
         }
     }, [])
@@ -60,6 +121,7 @@ export default function VocaAddPage() {
                     onChange={(e) => {
                         updateData(e)
                     }}
+                    required={true}
                 />
                 <input
                     name="meaning"
@@ -70,6 +132,7 @@ export default function VocaAddPage() {
                     onChange={(e) => {
                         updateData(e)
                     }}
+                    required={true}
                 />
                 <input
                     name="example"
@@ -102,7 +165,11 @@ export default function VocaAddPage() {
                         <button type="submit" className="submit-btn">
                             단어 수정
                         </button>
-                        <button type="button" className="submit-btn">
+                        <button
+                            type="button"
+                            className="submit-btn"
+                            onClick={deleteDetail}
+                        >
                             단어 삭제
                         </button>
                     </div>

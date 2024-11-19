@@ -1,7 +1,52 @@
 import logo from '@/assets/img/logo.png'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import user from '@/api/user.js'
+import { useDispatch } from 'react-redux'
+import { setUser } from '@/store/user-slice.js'
 
 export default function MainPage() {
+    const dispatch = useDispatch()
+
+    const [userInfo, setUserInfo] = useState({
+        userName: 'admin2',
+        userPassword: '12345',
+        userEmail: 'govmo1282@gmail.com',
+    })
+
+    const getUser = async () => {
+        try {
+            const response = await user.getUser('admin2')
+            console.log(response.data)
+            // console.log(response.status)
+            dispatch(setUser(response.data.userName))
+        } catch (error) {
+            // console.log(error)
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+        }
+    }
+
+    const createUser = async () => {
+        try {
+            const response = await user.createUser(
+                userInfo.userName,
+                userInfo.userPassword,
+                userInfo.userEmail,
+            )
+            console.log(response.data)
+            console.log(response.status)
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            alert(error.message)
+        }
+    }
+
+    useEffect(() => {
+        // createUser()
+        getUser()
+    }, [])
+
     return (
         <div className="flex min-h-screen justify-center bg-gray-200">
             <div className="relative flex h-screen w-full max-w-md flex-col bg-white">

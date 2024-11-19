@@ -3,20 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {
-    faArrowLeft,
-    faChevronLeft,
-    faHouse,
-} from '@fortawesome/free-solid-svg-icons'
-import { AiOutlineHome } from 'react-icons/ai'
+import note from '@/api/note.js'
 import { GrHomeRounded } from 'react-icons/gr'
-import { IoArrowBack } from 'react-icons/io5'
 import { HiArrowLeft } from 'react-icons/hi2'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { CiFolderOn } from 'react-icons/ci'
+import { CiSquarePlus } from 'react-icons/ci'
 
 export default function NoteListPage() {
     const navigate = useNavigate()
     const choice = useLocation().state.choice
-    const note = [
+    const userName = useSelector((state) => state.userSlice.userName)
+    const exampleNote = [
         {
             id: 1,
             title: '단어장 1 이름이 긴경ㅇ ㅜ처리',
@@ -37,29 +36,43 @@ export default function NoteListPage() {
             id: 4,
             title: '단어장 1',
         },
-        {
-            id: 4,
-            title: '단어장 1',
-        },
     ]
 
-    const navigatePage = () => {
+    const [noteList, setNoteList] = useState([])
+
+    const navigatePage = (noteid) => {
         if (choice === '단어관리') {
-            navigate('/voca-edit')
+            navigate('/voca-edit', { state: noteid })
         } else if (choice === '전체단어') {
-            navigate('/voca-learning')
+            navigate('/voca-learning', { state: noteid })
         } else if (choice === '단어카드') {
-            navigate('/flashcard-choice')
+            navigate('/flashcard-choice', { state: noteid })
         } else if (choice === '학습진단') {
-            navigate('/')
+            navigate('/', { state: noteid })
         } else if (choice === '예문학습') {
-            navigate('/')
+            navigate('/', { state: noteid })
         } else if (choice === '단어선택') {
-            navigate('/')
+            navigate('/', { state: noteid })
         } else {
             navigate('/')
         }
     }
+
+    // 단어장 리스트 가져오기
+    const getNoteList = async () => {
+        try {
+            const response = await note.getNote(userName)
+            console.log(response.data)
+            setNoteList(response.data)
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+        }
+    }
+
+    useEffect(() => {
+        getNoteList()
+    }, [])
 
     return (
         <div className="flex min-h-screen justify-center bg-gray-200">
@@ -82,18 +95,19 @@ export default function NoteListPage() {
                         <img src={logo} alt="monvoca logo" className="" />
                     </div>
                     <div className="no-scrollbar flex-1 overflow-y-auto">
-                        <div className="my-7 flex flex-wrap justify-around gap-y-6 py-4">
-                            {note.map((note, index) => (
+                        <div className="my-7 flex flex-wrap justify-around gap-y-6">
+                            {noteList.map((note, index) => (
                                 <div
                                     key={index}
-                                    className="group flex aspect-square w-5/12 cursor-pointer flex-col items-center justify-center text-xl"
-                                    onClick={() => navigatePage()}
+                                    className="group flex aspect-square w-2/5 cursor-pointer flex-col items-center justify-center rounded-lg text-xl hover:bg-blue-100/50"
+                                    onClick={() => navigatePage(note.id)}
                                 >
-                                    <div className="mb-1 h-fit w-3/4 rounded-xl bg-[#D8E9FE] p-2 group-hover:bg-[#3C82F6]">
-                                        <FontAwesomeIcon
-                                            icon={faFolder}
-                                            className="h-full w-full"
-                                        />
+                                    <div className="mb-1 h-fit w-4/6 rounded-xl p-2">
+                                        {/*<FontAwesomeIcon*/}
+                                        {/*    icon={faFolder}*/}
+                                        {/*    className="h-full w-full"*/}
+                                        {/*/>*/}
+                                        <CiFolderOn className="h-full w-full text-blue-500" />
                                     </div>
                                     {/*
                                     <div className="mb-1 h-3/4 w-fit rounded-xl bg-[#D8E9FE] p-2 hover:bg-[#3C82F6]">
@@ -103,17 +117,21 @@ export default function NoteListPage() {
                                         />
                                     </div>
                                     */}
-                                    <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-center">
+                                    <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap px-2 text-center">
                                         {note.title}
                                     </div>
                                 </div>
                             ))}
-                            <div className="flex aspect-square w-5/12 cursor-pointer items-center justify-center rounded-xl hover:bg-[#f5f5f5]">
-                                <FontAwesomeIcon
-                                    icon={faSquarePlus}
-                                    className="h-1/2"
-                                />
-                            </div>
+                            {choice === '단어관리' ? (
+                                <div
+                                    className="flex aspect-square w-2/5 cursor-pointer items-center justify-center rounded-xl hover:bg-[#f5f5f5]"
+                                    onClick={() => navigate('/note-add')}
+                                >
+                                    <CiSquarePlus className="h-1/2 w-full" />
+                                </div>
+                            ) : (
+                                <div className="w-5/12"></div>
+                            )}
                         </div>
                     </div>
                 </div>

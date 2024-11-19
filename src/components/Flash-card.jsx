@@ -29,7 +29,7 @@ export default function FlashCard({
                 onClick={() => setIsFront((prev) => !prev)}
             >
                 <div className="h-full w-full p-5">
-                    <div className="no-scrollbar flex h-full items-center justify-center overflow-y-auto">
+                    <div className="no-scrollbar flex h-full items-center justify-center overflow-y-auto text-3xl font-semibold">
                         {choice === 'word' ? word : meaning}
                     </div>
                 </div>
@@ -39,13 +39,13 @@ export default function FlashCard({
                 className={`flash-card absolute h-full w-full transition-transform duration-1000 ${!isFront ? 'back-front' : 'back'}`}
                 onClick={() => setIsFront((prev) => !prev)}
             >
-                <div className="h-full p-5">
+                <div className="h-full w-full overflow-hidden p-5">
                     <div
-                        className={`no-scrollbar flex h-full flex-col justify-center gap-y-6 overflow-y-auto ${onChange ? 'hidden' : 'flex'}`}
+                        className={`no-scrollbar flex h-full w-full flex-col items-center justify-center gap-y-8 overflow-y-auto text-3xl font-semibold ${onChange ? 'hidden' : 'flex'}`}
                     >
-                        {choice === 'word' ? <p>{word}</p> : <p>{meaning}</p>}
-                        {example && <p>{example}</p>}
-                        {memo && <p>{memo}</p>}
+                        {choice === 'word' ? <p>{meaning}</p> : <p>{word}</p>}
+                        {example && <p className="text-xl">{example}</p>}
+                        {memo && <p className="text-xl">{memo}</p>}
                     </div>
                 </div>
             </div>
