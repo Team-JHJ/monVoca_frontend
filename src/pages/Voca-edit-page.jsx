@@ -15,10 +15,12 @@ import { useSelector } from 'react-redux'
 
 export default function VocaEditPage() {
     const navigate = useNavigate()
-    const memoId = useLocation().state
-    console.log(`생성하고나서 ${memoId}`)
-    console.log(memoId)
+    // const noteId = useLocation().state
+    // console.log(`생성하고나서 ${noteId}`)
+    // console.log(noteId)
     const userName = useSelector((state) => state.userSlice.userName)
+    const noteId = useSelector((state) => state.noteSlice.noteId)
+    // console.log(`노트 아이디디디딛 ${noteName}`)
     const exampleObj = [
         {
             id: 1,
@@ -85,7 +87,7 @@ export default function VocaEditPage() {
     // 단어장 내 단어 리스트 가져오기
     const getDetailList = async () => {
         try {
-            const response = await detail.getDetail(userName, memoId)
+            const response = await detail.getDetail(userName, noteId)
             console.log(response.data)
             setVocaList(response.data)
         } catch (error) {
@@ -105,7 +107,7 @@ export default function VocaEditPage() {
                 <div
                     className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
                     onClick={() => {
-                        navigate('/add-word', { state: memoId })
+                        navigate('/add-word', { state: noteId })
                     }}
                 >
                     <FontAwesomeIcon
@@ -113,7 +115,12 @@ export default function VocaEditPage() {
                         icon={faPlus}
                     />
                 </div>
-                <div className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]">
+                <div
+                    className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
+                    onClick={() => {
+                        navigate('image-upload')
+                    }}
+                >
                     <FontAwesomeIcon
                         className="h-2/3 select-none"
                         icon={faImage}
@@ -159,7 +166,7 @@ export default function VocaEditPage() {
                                     className="cursor-pointer"
                                     onClick={() =>
                                         navigate('/edit-word', {
-                                            state: { memoId, item },
+                                            state: { item },
                                         })
                                     }
                                 />

@@ -10,6 +10,7 @@ import VocaLearningPage from '@/pages/Voca-learning-page.jsx'
 import FlashcardChoicePage from '@/pages/Flashcard-choice-page.jsx'
 import VocaFlashcardPage from '@/pages/Voca-flashcard-page.jsx'
 import NoteAddPage from '@/pages/Note-add-page.jsx'
+import ImageUploadPage from '@/pages/Image-upload-page.jsx'
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: '/voca-flashcard',
                 element: <VocaFlashcardPage />,
+            },
+            {
+                path: '/image-upload',
+                element: <ImageUploadPage />,
             },
         ],
     },

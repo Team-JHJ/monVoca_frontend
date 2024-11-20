@@ -7,12 +7,14 @@ import note from '@/api/note.js'
 import { GrHomeRounded } from 'react-icons/gr'
 import { HiArrowLeft } from 'react-icons/hi2'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { CiFolderOn } from 'react-icons/ci'
 import { CiSquarePlus } from 'react-icons/ci'
+import { setNote } from '@/store/note-slice.js'
 
 export default function NoteListPage() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const choice = useLocation().state.choice
     const userName = useSelector((state) => state.userSlice.userName)
     const exampleNote = [
@@ -41,18 +43,19 @@ export default function NoteListPage() {
     const [noteList, setNoteList] = useState([])
 
     const navigatePage = (noteid) => {
+        dispatch(setNote(noteid))
         if (choice === '단어관리') {
-            navigate('/voca-edit', { state: noteid })
+            navigate('/voca-edit')
         } else if (choice === '전체단어') {
-            navigate('/voca-learning', { state: noteid })
+            navigate('/voca-learning')
         } else if (choice === '단어카드') {
-            navigate('/flashcard-choice', { state: noteid })
+            navigate('/flashcard-choice')
         } else if (choice === '학습진단') {
-            navigate('/', { state: noteid })
+            navigate('/')
         } else if (choice === '예문학습') {
-            navigate('/', { state: noteid })
+            navigate('/')
         } else if (choice === '단어선택') {
-            navigate('/', { state: noteid })
+            navigate('/')
         } else {
             navigate('/')
         }

@@ -7,14 +7,14 @@ export default function VocaAddPage() {
     const navigate = useNavigate()
     const location = useLocation()
     const path = location.pathname
-    let noteId = location.state.noteId
-    if (path !== '/edit-word') {
-        noteId = location.state
-    }
-    console.log(noteId)
-    // if
+    // let noteId = location.state.noteId
+    // if (path !== '/edit-word') {
+    //     noteId = location.state
+    // }
+    // console.log(noteId)
     // const item = location.state.item
     const userName = useSelector((state) => state.userSlice.userName)
+    const noteId = useSelector((state) => state.noteSlice.noteId)
     // console.log(noteId)
     // console.log(item)
     // console.log(id)
@@ -73,17 +73,21 @@ export default function VocaAddPage() {
     }
 
     const submitData = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         if (input.detailId) {
             // 아이디가 있으면 단어 수정 요청
             updateDetail()
-            navigate('/voca-edit', { state: noteId })
         } else {
             // 아이디가 없으면 단어 추가 요청
             createDetail()
-            // navigate(-2)
-            navigate('/voca-edit', { state: noteId })
         }
+
+        history.replaceState(null, '', document.referrer)
+        // navigate('/voca-edit')
+        navigate('/voca-edit')
+        // history.replaceState(null, '', document.referrer)
+        // 뒤로 가기
+        // history.back()
     }
 
     useEffect(() => {
