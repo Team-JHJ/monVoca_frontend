@@ -55,9 +55,9 @@ export default function NoteListPage() {
         } else if (choice === '학습진단') {
             navigate('/')
         } else if (choice === '예문학습') {
-            navigate('/')
+            navigate('/example-quiz')
         } else if (choice === '단어선택') {
-            navigate('/')
+            navigate('/voca-quiz')
         } else {
             navigate('/')
         }

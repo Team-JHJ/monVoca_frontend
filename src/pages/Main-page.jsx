@@ -101,12 +101,18 @@ export default function MainPage() {
                                 </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                <Link to="" state={{ choice: '예문학습' }}>
+                                <Link
+                                    to="/note-list"
+                                    state={{ choice: '예문학습' }}
+                                >
                                     예문 빈칸학습
                                 </Link>
                             </div>
                             <div className="flex w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
-                                <Link to="" state={{ choice: '단어선택' }}>
+                                <Link
+                                    to="/note-list"
+                                    state={{ choice: '단어선택' }}
+                                >
                                     단어 선택하기
                                 </Link>
                             </div>

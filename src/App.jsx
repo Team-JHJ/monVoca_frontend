@@ -11,6 +11,9 @@ import FlashcardChoicePage from '@/pages/Flashcard-choice-page.jsx'
 import VocaFlashcardPage from '@/pages/Voca-flashcard-page.jsx'
 import NoteAddPage from '@/pages/Note-add-page.jsx'
 import ImageUploadPage from '@/pages/Image-upload-page.jsx'
+import VocaQuizPage from '@/pages/Voca-quiz-page.jsx'
+import SentenceQuizPage from '@/pages/Sentence-quiz-page.jsx'
+import CompletionPage from '@/pages/Completion-page.jsx'
 
 const router = createBrowserRouter([
     {
@@ -60,6 +63,18 @@ const router = createBrowserRouter([
             {
                 path: '/image-upload',
                 element: <ImageUploadPage />,
+            },
+            {
+                path: '/example-quiz',
+                element: <SentenceQuizPage />,
+            },
+            {
+                path: '/voca-quiz',
+                element: <VocaQuizPage />,
+            },
+            {
+                path: '/completion',
+                element: <CompletionPage />,
             },
         ],
     },
