@@ -27,7 +27,11 @@ export default function VocaAddPage() {
 
     const updateData = (e) => {
         // console.log(e.target)
-        const { name, value } = e.target
+        let { name, value } = e.target
+        // 영단어 입력할 때 공백과 영문자만 입력하도록
+        if (name === 'word') {
+            value = e.target.value.replace(/[^a-zA-Z ]/g, '')
+        }
         const data = { ...input, [name]: value }
         setInput(data)
     }
