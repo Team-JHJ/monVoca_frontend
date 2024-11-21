@@ -27,6 +27,19 @@ const detail = {
             `/deleteDetail/${userName}/${noteId}/${detailId}`,
         )
     },
+
+    // 이미지 업로드
+    uploadImage: (userName, noteId, formData) => {
+        return axiosInstance.post(
+            `/translate-and-add/${userName}/${noteId}`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            },
+        )
+    },
 }
 
 export default detail
