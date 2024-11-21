@@ -24,11 +24,6 @@ export default function VocaAddPage() {
         example: '',
         memo: '',
     })
-    const word = 'apple'
-    const meaning = '사과'
-    const example = 'I ate apple'
-    const memo = '명사'
-    // console.log(input)
 
     const updateData = (e) => {
         // console.log(e.target)
@@ -64,8 +59,8 @@ export default function VocaAddPage() {
                 noteId,
                 location.state.item.id,
             )
-            console.log(response.status)
-            navigate('/voca-edit', { state: noteId })
+            history.replaceState(null, '', document.referrer)
+            navigate(-1)
         } catch (error) {
             console.error('Request Error:', error.message)
             // alert(error.message)
@@ -82,12 +77,9 @@ export default function VocaAddPage() {
             createDetail()
         }
 
+        // 요청 완료하면 이전 페이지로 이동
         history.replaceState(null, '', document.referrer)
-        // navigate('/voca-edit')
-        navigate('/voca-edit')
-        // history.replaceState(null, '', document.referrer)
-        // 뒤로 가기
-        // history.back()
+        navigate(-1)
     }
 
     useEffect(() => {

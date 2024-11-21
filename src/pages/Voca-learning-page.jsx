@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import detail from '@/api/detail.js'
 
 export default function VocaLearningPage() {
     const exampleObj = [
@@ -89,6 +91,11 @@ export default function VocaLearningPage() {
         },
     ]
 
+    const userName = useSelector((state) => state.userSlice.userName)
+    const noteId = useSelector((state) => state.noteSlice.noteId)
+    console.log(`유저: ${userName}`)
+    console.log(`노트 ${noteId}`)
+    const [vocaList, setVocaList] = useState([])
     const [showWord, setShowWord] = useState(true)
     const [showMeaning, setShowMeaning] = useState(true)
 
@@ -105,6 +112,24 @@ export default function VocaLearningPage() {
         }
         setShowMeaning((prev) => !prev)
     }
+
+    // 단어장 내 단어 리스트 가져오기
+    const getDetailList = async () => {
+        console.log('가져옴')
+        try {
+            const response = await detail.getDetail(userName, noteId)
+            console.log(response.data)
+            setVocaList(response.data)
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+            setVocaList(exampleObj)
+        }
+    }
+
+    useEffect(() => {
+        getDetailList()
+    }, [])
 
     return (
         <div className="flex h-full w-full flex-col p-4">
@@ -127,7 +152,7 @@ export default function VocaLearningPage() {
                 </div>
             </div>
             <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-y-auto">
-                {exampleObj.map((item, index) => (
+                {vocaList.map((item, index) => (
                     <div
                         key={item.id}
                         className="flex rounded-lg bg-[#EFF6FF] py-4 text-lg"

@@ -17,7 +17,7 @@ export default function MainPage() {
     const getUser = async () => {
         try {
             const response = await user.getUser('admin2')
-            console.log(response.data)
+            // console.log(response.data)
             // console.log(response.status)
             dispatch(setUser(response.data.userName))
         } catch (error) {
@@ -63,7 +63,7 @@ export default function MainPage() {
                         <p className="mb-1 text-4xl font-medium sm:text-3xl">
                             단어
                         </p>
-                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-extrabold">
+                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-bold">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
                                 <Link
                                     to="/note-list"
@@ -94,7 +94,7 @@ export default function MainPage() {
                         <p className="mb-1 text-4xl font-medium sm:text-3xl">
                             복습
                         </p>
-                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-extrabold">
+                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-bold">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
                                 <Link to="" state={{ choice: '학습진단' }}>
                                     O, X 자가진단

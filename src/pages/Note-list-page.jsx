@@ -42,8 +42,8 @@ export default function NoteListPage() {
 
     const [noteList, setNoteList] = useState([])
 
-    const navigatePage = (noteid) => {
-        dispatch(setNote(noteid))
+    const navigatePage = (noteId, noteTitle) => {
+        dispatch(setNote({ noteId, noteTitle }))
         if (choice === '단어관리') {
             navigate('/voca-edit')
         } else if (choice === '전체단어') {
@@ -74,6 +74,7 @@ export default function NoteListPage() {
     }
 
     useEffect(() => {
+        console.log(`유저명 ${userName}`)
         getNoteList()
     }, [])
 
@@ -103,7 +104,9 @@ export default function NoteListPage() {
                                 <div
                                     key={index}
                                     className="group flex aspect-square w-2/5 cursor-pointer flex-col items-center justify-center rounded-lg text-xl hover:bg-blue-100/50"
-                                    onClick={() => navigatePage(note.id)}
+                                    onClick={() =>
+                                        navigatePage(note.id, note.title)
+                                    }
                                 >
                                     <div className="mb-1 h-fit w-4/6 rounded-xl p-2">
                                         {/*<FontAwesomeIcon*/}

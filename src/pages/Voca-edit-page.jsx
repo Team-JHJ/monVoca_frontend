@@ -20,7 +20,7 @@ export default function VocaEditPage() {
     // console.log(noteId)
     const userName = useSelector((state) => state.userSlice.userName)
     const noteId = useSelector((state) => state.noteSlice.noteId)
-    // console.log(`노트 아이디디디딛 ${noteName}`)
+    // console.log(`노트 아이디디디딛 ${noteId}`)
     const exampleObj = [
         {
             id: 1,
@@ -86,6 +86,7 @@ export default function VocaEditPage() {
 
     // 단어장 내 단어 리스트 가져오기
     const getDetailList = async () => {
+        console.log('가져옴')
         try {
             const response = await detail.getDetail(userName, noteId)
             console.log(response.data)
@@ -105,9 +106,9 @@ export default function VocaEditPage() {
         <div className="flex h-full w-full flex-col p-4">
             <div className="flex h-20 justify-between pb-8">
                 <div
-                    className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
+                    className="flex w-[45%] cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:border-[#C7CCD3] hover:bg-[#E5E7EB]"
                     onClick={() => {
-                        navigate('/add-word', { state: noteId })
+                        navigate('/add-word')
                     }}
                 >
                     <FontAwesomeIcon
@@ -116,9 +117,9 @@ export default function VocaEditPage() {
                     />
                 </div>
                 <div
-                    className="flex w-2/5 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
+                    className="flex w-[45%] cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:border-[#C7CCD3] hover:bg-[#E5E7EB]"
                     onClick={() => {
-                        navigate('image-upload')
+                        navigate('/image-upload')
                     }}
                 >
                     <FontAwesomeIcon
@@ -127,18 +128,18 @@ export default function VocaEditPage() {
                     />
                 </div>
             </div>
-            <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-y-auto">
+            <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-hidden overflow-y-auto">
                 {vocaList.map((item, index) => (
                     <div key={index} className="relative w-full text-2xl">
                         <div
-                            className={`relative z-10 flex h-16 items-center justify-between bg-[#e5efff] px-4 ${isOpen[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
+                            className={`relative z-10 flex justify-between bg-[#e5efff] p-4 ${isOpen[index] ? 'rounded-t-lg' : 'rounded-lg'}`}
                         >
-                            <p className="font-bold text-[#1D40B0]">
+                            <p className="mr-1 font-bold text-[#1D40B0]">
                                 {item.word}
                             </p>
-                            {
+                            <div className="h-8">
                                 <FontAwesomeIcon
-                                    className="h-3/5 cursor-pointer select-none"
+                                    className="cursor-pointer select-none"
                                     onClick={() => {
                                         openCard(index)
                                     }}
@@ -149,13 +150,13 @@ export default function VocaEditPage() {
                                         isOpen[index] ? '#687EE2' : '#E26868'
                                     }
                                 />
-                            }
+                            </div>
                         </div>
                         <div
                             className={`overflow-hidden rounded-b-lg border-2 border-t-0 border-[#EBEBEB] px-4 transition-transform duration-500 ${!isOpen[index] ? 'invisible h-0 -translate-y-12 opacity-0' : 'visible h-auto translate-y-0 opacity-100'}`}
                         >
-                            <div className="flex items-center justify-between py-4">
-                                <div className="mr-4 bg-blue-100/50 px-1 text-lg text-gray-400">
+                            <div className="flex justify-between py-4">
+                                <div className="mr-4 mt-0.5 h-7 bg-blue-100/50 px-1 text-lg text-gray-400">
                                     뜻
                                 </div>
                                 <div className="mr-2 flex-1">
@@ -163,7 +164,7 @@ export default function VocaEditPage() {
                                 </div>
                                 <LuPencil
                                     size={28}
-                                    className="cursor-pointer"
+                                    className="mt-0.5 cursor-pointer text-gray-600 hover:text-black"
                                     onClick={() =>
                                         navigate('/edit-word', {
                                             state: { item },
@@ -172,19 +173,19 @@ export default function VocaEditPage() {
                                 />
                             </div>
                             {item.example && (
-                                <div className="flex items-center">
-                                    <div className="mr-4 bg-blue-100/50 px-1 text-lg text-gray-400">
+                                <div className="flex py-4">
+                                    <div className="mr-4 mt-1 h-7 bg-blue-100/50 px-1 text-lg text-gray-400">
                                         예문
                                     </div>
-                                    <div className="py-4">{item.example}</div>
+                                    <div className="flex-1">{item.example}</div>
                                 </div>
                             )}
                             {item.memo && (
-                                <div className="flex items-center">
-                                    <div className="mr-4 bg-blue-100/50 px-1 text-lg text-gray-400">
+                                <div className="flex py-4">
+                                    <div className="mr-4 mt-1 h-7 bg-blue-100/50 px-1 text-lg text-gray-400">
                                         메모
                                     </div>
-                                    <div className="py-4">{item.memo}</div>
+                                    <div className="flex-1">{item.memo}</div>
                                 </div>
                             )}
                         </div>

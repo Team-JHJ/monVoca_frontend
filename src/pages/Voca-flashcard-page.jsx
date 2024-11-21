@@ -6,11 +6,14 @@ import {
     faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import detail from '@/api/detail.js'
 
 export default function VocaFlashcardPage() {
+    const userName = useSelector((state) => state.userSlice.userName)
+    const noteId = useSelector((state) => state.noteSlice.noteId)
     const choice = useLocation().state
-
-    const [vocaList, setVocaList] = useState([
+    const exampleObj = [
         {
             id: 1,
             word: '영단어1',
@@ -60,7 +63,9 @@ export default function VocaFlashcardPage() {
             example: '예문7',
             memo: '메모7',
         },
-    ])
+    ]
+
+    const [vocaList, setVocaList] = useState([])
     const [voca, setVoca] = useState({})
     const [listIndex, setListIndex] = useState(0)
 
@@ -72,29 +77,62 @@ export default function VocaFlashcardPage() {
         setListIndex((prev) => (prev <= 0 ? vocaList.length - 1 : prev - 1))
     }
 
-    const getVoca = async () => {
+    const getVoca = () => {
         setVoca(vocaList[listIndex])
     }
 
+    // 단어장 내 단어 리스트 가져오기
+    const getDetailList = async () => {
+        console.log('가져옴')
+        try {
+            const response = await detail.getDetail(userName, noteId)
+            console.log(response.data)
+            setVocaList(response.data)
+            getVoca()
+        } catch (error) {
+            console.error('Request Error:', error.message)
+            // alert(error.message)
+            setVocaList(exampleObj)
+        }
+    }
+
+    // voca가 유효한지 확인하는 함수 추가
+    const isVocaValid = () => {
+        return voca && Object.keys(voca).length > 0 && voca.id
+    }
+
     useEffect(() => {
-        getVoca()
+        getDetailList()
     }, [])
 
     useEffect(() => {
-        getVoca()
-    }, [listIndex])
+        if (vocaList.length > 0) {
+            getVoca()
+        }
+    }, [vocaList, listIndex])
 
     return (
         <div className="flex h-full w-full flex-col overflow-hidden p-4">
             <div className="no-scrollbar flex h-full items-center overflow-y-auto">
-                <FlashCard
-                    choice={choice}
-                    id={voca.id}
-                    word={voca.word}
-                    meaning={voca.meaning}
-                    example={voca.example}
-                    memo={voca.memo}
-                />
+                {isVocaValid() ? (
+                    <FlashCard
+                        choice={choice}
+                        id={voca.id}
+                        word={voca.word}
+                        meaning={voca.meaning}
+                        example={voca.example}
+                        memo={voca.memo}
+                    />
+                ) : (
+                    <FlashCard
+                        choice=""
+                        id=""
+                        word=""
+                        meaning=""
+                        example=""
+                        memo=""
+                    />
+                )}
             </div>
             <div className="flex h-24 items-center justify-between py-3">
                 <FontAwesomeIcon
