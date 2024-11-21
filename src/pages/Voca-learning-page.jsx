@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import detail from '@/api/detail.js'
+import Loading from '@/components/loading.jsx'
 
 export default function VocaLearningPage() {
     const exampleObj = [
@@ -93,11 +94,12 @@ export default function VocaLearningPage() {
 
     const userName = useSelector((state) => state.userSlice.userName)
     const noteId = useSelector((state) => state.noteSlice.noteId)
-    console.log(`유저: ${userName}`)
-    console.log(`노트 ${noteId}`)
+    // console.log(`유저: ${userName}`)
+    // console.log(`노트 ${noteId}`)
     const [vocaList, setVocaList] = useState([])
     const [showWord, setShowWord] = useState(true)
     const [showMeaning, setShowMeaning] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const toggleWord = () => {
         if (showWord && !showMeaning) {
@@ -115,14 +117,15 @@ export default function VocaLearningPage() {
 
     // 단어장 내 단어 리스트 가져오기
     const getDetailList = async () => {
-        console.log('가져옴')
+        setIsLoading(true)
         try {
             const response = await detail.getDetail(userName, noteId)
-            console.log(response.data)
+            // console.log(response.data)
             setVocaList(response.data)
+            setIsLoading(false)
         } catch (error) {
             console.error('Request Error:', error.message)
-            // alert(error.message)
+            alert(error.message)
             setVocaList(exampleObj)
         }
     }
@@ -132,7 +135,7 @@ export default function VocaLearningPage() {
     }, [])
 
     return (
-        <div className="flex h-full w-full flex-col p-4">
+        <div className="flex h-full w-full flex-col break-all p-4">
             <div className="flex h-20 justify-between pb-8 text-lg">
                 <div
                     className="flex w-5/12 cursor-pointer items-center justify-center rounded-lg border border-[#E5E7EB] bg-[#F5F5F5] hover:bg-[#E5E7EB]"
@@ -151,26 +154,30 @@ export default function VocaLearningPage() {
                     {showMeaning ? '뜻 가리기' : '뜻 보이기'}
                 </div>
             </div>
-            <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-y-auto">
-                {vocaList.map((item, index) => (
-                    <div
-                        key={item.id}
-                        className="flex rounded-lg bg-[#EFF6FF] py-4 text-lg"
-                    >
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <div className="no-scrollbar flex flex-1 flex-col gap-y-5 overflow-y-auto">
+                    {vocaList.map((item, index) => (
                         <div
-                            className={`w-1/2 px-4 text-[#1D40B0] ${!showWord && 'invisible'}`}
+                            key={item.id}
+                            className="flex rounded-lg bg-[#EFF6FF] py-4 text-lg"
                         >
-                            {item.word}
+                            <div
+                                className={`w-1/2 px-4 text-[#1D40B0] ${!showWord && 'invisible'}`}
+                            >
+                                {item.word}
+                            </div>
+                            <div className="h-full border-2 border-white"></div>
+                            <div
+                                className={`w-1/2 px-4 text-[#2463EB] ${!showMeaning && 'invisible'}`}
+                            >
+                                {item.meaning}
+                            </div>
                         </div>
-                        <div className="h-full border-2 border-white"></div>
-                        <div
-                            className={`w-1/2 px-4 text-[#2463EB] ${!showMeaning && 'invisible'}`}
-                        >
-                            {item.meaning}
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

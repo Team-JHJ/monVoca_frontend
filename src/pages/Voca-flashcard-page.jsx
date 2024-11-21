@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import detail from '@/api/detail.js'
+import Loading from '@/components/loading.jsx'
 
 export default function VocaFlashcardPage() {
     const userName = useSelector((state) => state.userSlice.userName)
@@ -83,10 +84,9 @@ export default function VocaFlashcardPage() {
 
     // 단어장 내 단어 리스트 가져오기
     const getDetailList = async () => {
-        console.log('가져옴')
         try {
             const response = await detail.getDetail(userName, noteId)
-            console.log(response.data)
+            // console.log(response.data)
             setVocaList(response.data)
             getVoca()
         } catch (error) {
@@ -124,14 +124,7 @@ export default function VocaFlashcardPage() {
                         memo={voca.memo}
                     />
                 ) : (
-                    <FlashCard
-                        choice=""
-                        id=""
-                        word=""
-                        meaning=""
-                        example=""
-                        memo=""
-                    />
+                    <Loading />
                 )}
             </div>
             <div className="flex h-24 items-center justify-between py-3">

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CiFolderOn } from 'react-icons/ci'
 import { CiSquarePlus } from 'react-icons/ci'
 import { setNote } from '@/store/note-slice.js'
+import Loading from '@/components/loading.jsx'
 
 export default function NoteListPage() {
     const navigate = useNavigate()
@@ -40,6 +41,7 @@ export default function NoteListPage() {
         },
     ]
 
+    const [isLoading, setIsLoading] = useState(false)
     const [noteList, setNoteList] = useState([])
 
     const navigatePage = (noteId, noteTitle) => {
@@ -63,18 +65,18 @@ export default function NoteListPage() {
 
     // 단어장 리스트 가져오기
     const getNoteList = async () => {
+        setIsLoading(true)
         try {
             const response = await note.getNote(userName)
-            console.log(response.data)
             setNoteList(response.data)
+            setIsLoading(false)
         } catch (error) {
             console.error('Request Error:', error.message)
-            // alert(error.message)
+            alert(error.message)
         }
     }
 
     useEffect(() => {
-        console.log(`유저명 ${userName}`)
         getNoteList()
     }, [])
 
@@ -99,23 +101,26 @@ export default function NoteListPage() {
                         <img src={logo} alt="monvoca logo" className="" />
                     </div>
                     <div className="no-scrollbar flex-1 overflow-y-auto">
-                        <div className="my-7 flex flex-wrap justify-around gap-y-6">
-                            {noteList.map((note, index) => (
-                                <div
-                                    key={index}
-                                    className="group flex aspect-square w-2/5 cursor-pointer flex-col items-center justify-center rounded-lg text-xl hover:bg-blue-100/50"
-                                    onClick={() =>
-                                        navigatePage(note.id, note.title)
-                                    }
-                                >
-                                    <div className="mb-1 h-fit w-4/6 rounded-xl p-2">
-                                        {/*<FontAwesomeIcon*/}
-                                        {/*    icon={faFolder}*/}
-                                        {/*    className="h-full w-full"*/}
-                                        {/*/>*/}
-                                        <CiFolderOn className="h-full w-full text-blue-500" />
-                                    </div>
-                                    {/*
+                        {isLoading ? (
+                            <Loading />
+                        ) : (
+                            <div className="my-7 flex flex-wrap justify-around gap-y-6">
+                                {noteList.map((note, index) => (
+                                    <div
+                                        key={index}
+                                        className="group flex aspect-square w-2/5 cursor-pointer flex-col items-center justify-center rounded-lg text-xl hover:bg-blue-100/50"
+                                        onClick={() =>
+                                            navigatePage(note.id, note.title)
+                                        }
+                                    >
+                                        <div className="mb-1 h-fit w-4/6 rounded-xl p-2">
+                                            {/*<FontAwesomeIcon*/}
+                                            {/*    icon={faFolder}*/}
+                                            {/*    className="h-full w-full"*/}
+                                            {/*/>*/}
+                                            <CiFolderOn className="h-full w-full text-blue-500" />
+                                        </div>
+                                        {/*
                                     <div className="mb-1 h-3/4 w-fit rounded-xl bg-[#D8E9FE] p-2 hover:bg-[#3C82F6]">
                                         <FontAwesomeIcon
                                             icon={faFolder}
@@ -123,22 +128,23 @@ export default function NoteListPage() {
                                         />
                                     </div>
                                     */}
-                                    <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap px-2 text-center">
-                                        {note.title}
+                                        <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap px-2 text-center">
+                                            {note.title}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                            {choice === '단어관리' ? (
-                                <div
-                                    className="flex aspect-square w-2/5 cursor-pointer items-center justify-center rounded-xl hover:bg-[#f5f5f5]"
-                                    onClick={() => navigate('/note-add')}
-                                >
-                                    <CiSquarePlus className="h-1/2 w-full" />
-                                </div>
-                            ) : (
-                                <div className="w-5/12"></div>
-                            )}
-                        </div>
+                                ))}
+                                {choice === '단어관리' ? (
+                                    <div
+                                        className="flex aspect-square w-2/5 cursor-pointer items-center justify-center rounded-xl hover:bg-[#f5f5f5]"
+                                        onClick={() => navigate('/note-add')}
+                                    >
+                                        <CiSquarePlus className="h-1/2 w-full" />
+                                    </div>
+                                ) : (
+                                    <div className="w-5/12"></div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="h-20"></div>

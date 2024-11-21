@@ -81,14 +81,14 @@ export default function FlashCard({
     }, [id])
 
     return (
-        <div className="relative h-3/5 w-full [perspective:1100px]">
+        <div className="relative h-3/5 w-full break-all [perspective:1100px]">
             {/* 카드 앞면*/}
             <div
                 className={`flash-card absolute h-full w-full overflow-hidden transition-transform duration-1000 ${isFront ? 'front' : 'front-back'}`}
                 onClick={() => setIsFront((prev) => !prev)}
             >
                 <div className="h-full w-full p-5">
-                    <div className="no-scrollbar relative flex h-full items-center justify-center overflow-y-auto text-3xl font-semibold">
+                    <div className="no-scrollbar relative flex h-full w-full items-center justify-center overflow-y-auto text-3xl font-semibold">
                         {choice === 'word' && (
                             <button
                                 className="absolute top-10 w-fit"
@@ -99,7 +99,9 @@ export default function FlashCard({
                                 <FontAwesomeIcon icon={faVolumeHigh} />
                             </button>
                         )}
-                        <div>{choice === 'word' ? word : meaning}</div>
+                        <div className="">
+                            {choice === 'word' ? word : meaning}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-import { IoArrowBack } from 'react-icons/io5'
 import { GrHomeRounded } from 'react-icons/gr'
 import { HiArrowLeft } from 'react-icons/hi2'
 
