@@ -1,10 +1,19 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function FlashcardChoicePage() {
     const navigate = useNavigate()
+    const location = useLocation()
+    const subject = location.state
+    console.log(subject)
 
     const select = (choice) => {
-        navigate('/voca-flashcard', { state: choice })
+        if (subject === '단어카드') {
+            navigate('/voca-flashcard', { state: choice })
+        } else if (subject === '학습진단') {
+            navigate('/voca-check', { state: choice })
+        } else {
+            navigate('/voca-quiz', { state: choice })
+        }
     }
 
     return (
@@ -15,7 +24,7 @@ export default function FlashcardChoicePage() {
                     select('word')
                 }}
             >
-                영어로 학습
+                영어
             </div>
             <div
                 className="flex h-48 cursor-pointer items-center justify-center rounded-lg bg-[#E5E7EB] hover:bg-[#C2C5CC]"
@@ -23,7 +32,7 @@ export default function FlashcardChoicePage() {
                     select('meaning')
                 }}
             >
-                한글로 학습
+                한글
             </div>
         </div>
     )

@@ -2,8 +2,12 @@ import axiosInstance from '@/api/axios.js'
 
 const review = {
     // OX 자가진단
-    getOXQuiz: (data) => {
-        return axiosInstance.post('/getOXQuiz', data)
+    getOXQuiz: (language, userName, noteId) => {
+        return axiosInstance.post('/getOXQuiz', {
+            language,
+            userName,
+            noteId,
+        })
     },
 
     // 예문 퀴즈

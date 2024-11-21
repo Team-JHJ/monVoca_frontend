@@ -14,6 +14,7 @@ import ImageUploadPage from '@/pages/Image-upload-page.jsx'
 import VocaQuizPage from '@/pages/Voca-quiz-page.jsx'
 import SentenceQuizPage from '@/pages/Sentence-quiz-page.jsx'
 import CompletionPage from '@/pages/Completion-page.jsx'
+import VocaCheckPage from '@/pages/Voca-check-page.jsx'
 
 const router = createBrowserRouter([
     {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
             {
                 path: '/voca-quiz',
                 element: <VocaQuizPage />,
+            },
+            {
+                path: '/voca-check',
+                element: <VocaCheckPage />,
             },
             {
                 path: '/completion',

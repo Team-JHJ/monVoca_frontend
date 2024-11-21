@@ -51,13 +51,13 @@ export default function NoteListPage() {
         } else if (choice === '전체단어') {
             navigate('/voca-learning')
         } else if (choice === '단어카드') {
-            navigate('/flashcard-choice')
+            navigate('/flashcard-choice', { state: choice })
         } else if (choice === '학습진단') {
-            navigate('/')
+            navigate('/flashcard-choice', { state: choice })
         } else if (choice === '예문학습') {
             navigate('/example-quiz')
         } else if (choice === '단어선택') {
-            navigate('/voca-quiz')
+            navigate('/flashcard-choice', { state: choice })
         } else {
             navigate('/')
         }
