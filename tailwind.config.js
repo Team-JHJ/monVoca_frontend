@@ -7,6 +7,9 @@ export default {
                 sans: ['Pretendard-Regular', 'sans-serif'],
             },
         },
+        screens: {
+            sm: { max: '400px' },
+        },
     },
     plugins: [],
 }

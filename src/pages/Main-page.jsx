@@ -60,8 +60,10 @@ export default function MainPage() {
                         />
                     </div>
                     <div className="flex flex-1 flex-col justify-center">
-                        <p className="mb-1 text-4xl font-medium">단어</p>
-                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0]">
+                        <p className="mb-1 text-4xl font-medium sm:text-3xl">
+                            단어
+                        </p>
+                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-extrabold">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
                                 <Link
                                     to="/note-list"
@@ -89,8 +91,10 @@ export default function MainPage() {
                         </div>
                     </div>
                     <div className="flex flex-1 flex-col justify-center">
-                        <p className="mb-1 text-4xl font-medium">복습</p>
-                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0]">
+                        <p className="mb-1 text-4xl font-medium sm:text-3xl">
+                            복습
+                        </p>
+                        <div className="flex justify-between break-keep text-center text-3xl font-bold text-[#1D40B0] sm:text-2xl sm:font-extrabold">
                             <div className="flex aspect-square w-[30%] cursor-pointer items-center justify-center rounded-md bg-[#D8E9FE] p-2 hover:bg-[#3C82F6] hover:text-white">
                                 <Link to="" state={{ choice: '학습진단' }}>
                                     O, X 자가진단
