@@ -1,20 +1,27 @@
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import review from '@/api/review.js'
-import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Loading from '@/components/loading.jsx'
-import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function SentenceQuizPage() {
-    const navigate = useNavigate()
+export default function VocaQuizPage() {
     const userName = useSelector((state) => state.userSlice.userName)
     const noteId = useSelector((state) => state.noteSlice.noteId)
+    const navigate = useNavigate()
+    const choice = useLocation().state
+    let lang = ''
+    if (choice === 'word') {
+        lang = 'kor'
+    } else {
+        lang = 'eng'
+    }
 
-    const [quizList, setQuizList] = useState([])
-    const [quiz, setQuiz] = useState({ options: [] })
-    const [quizIndex, setQuizIndex] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
+    const [quizList, setQuizList] = useState([])
+    const [quizIndex, setQuizIndex] = useState(0)
+    const [quiz, setQuiz] = useState({ options: [] })
     const [isCorrect, setIsCorrect] = useState('')
 
     // 다음 퀴즈로
@@ -34,30 +41,21 @@ export default function SentenceQuizPage() {
         }
     }
 
-    // 퀴즈 문제 저장
     const getQuiz = () => {
-        setIsCorrect('')
         const data = quizList[quizIndex]
-        if (!data) {
-            return
-        }
-        // console.log(`데이터 ${data}`)
+        if (!data) return
+
         const exampleObj = {}
         let options = []
         for (const [key, value] of Object.entries(data)) {
             // console.log(`${key}: ${value}`)
-            if (key === 'example') {
-                // 예문이라면
+            if (key === 'question') {
+                // 문제라면
                 exampleObj[key] = value
-            } else if (key === 'word1') {
+            } else if (key === 'answer') {
                 // 정답이라면
                 exampleObj['answer'] = value
-
-                // 정답 밑줄 처리
-                exampleObj['example'] = exampleObj['example'].replace(
-                    value,
-                    '_______',
-                )
+                // 보기에 추가
                 options.push(value)
             } else {
                 // 보기에 추가
@@ -65,28 +63,21 @@ export default function SentenceQuizPage() {
             }
         }
         exampleObj['options'] = options.toSorted()
+
         setQuiz(exampleObj)
-        setIsLoading(false)
     }
 
-    // 예문에 단어가 들어갔는지 확인하고 들어갔다면 저장
-    const validExample = (exampleArray) => {
-        const exampleList = exampleArray.filter((data) =>
-            new RegExp(`(^|\\s)${data.word1}(\\s|$)`).test(data.example),
-        )
-
-        setQuizList(exampleList)
-    }
-
-    const getExample = async () => {
+    const getQuizList = async () => {
         try {
-            if (isLoading) return
             setIsLoading(true)
-            const response = await review.getExampleQuiz(userName, noteId)
-            validExample(response.data)
+            const response = await review.getSelectQuiz(lang, userName, noteId)
+            // console.log(response.data)
+            // validQuiz(response.data)
+            setQuizList(response.data)
+            getQuiz()
             setIsLoading(false)
         } catch (error) {
-            console.error('Request Error:', error.message)
+            console.error(error)
             // alert(error.message)
         }
     }
@@ -95,20 +86,15 @@ export default function SentenceQuizPage() {
         if (choice === answer) {
             // 정답이라면
             setIsCorrect('answer')
-            // 밑줄 정답 채워넣기
-            const answer = quiz.example.replace('_______', e.target.innerText)
-            setQuiz({ ...quiz, ['example']: answer })
         } else {
             // 틀렸다면
-            const example = quiz.example.replace(answer, '_______')
-            setQuiz({ ...quiz, ['example']: example })
             setIsCorrect(choice)
             // console.log('오답')
         }
     }
 
     useEffect(() => {
-        getExample()
+        getQuizList()
     }, [])
 
     useEffect(() => {
@@ -119,27 +105,21 @@ export default function SentenceQuizPage() {
 
     return (
         <div
-            className={`flex h-full w-full flex-col justify-evenly overflow-hidden p-4 ${quizList.length === 0 && 'justify-center'}`}
+            className={`flex h-full w-full flex-col justify-evenly overflow-hidden break-all p-4 ${quizList.length === 0 && 'justify-center'}`}
         >
             {isLoading ? (
                 <Loading />
-            ) : quizList.length === 0 ? (
-                <div className="flex h-48 items-center justify-center rounded-lg bg-[#DBE9FE]">
-                    예문이 없습니다
-                </div>
             ) : (
                 <>
-                    <div className="flex h-full flex-col justify-center gap-y-10">
-                        <div className="no-scrollbar flex min-h-48 items-center justify-center overflow-y-auto rounded-lg bg-[#DBE9FE] p-4">
-                            {quizList.length > 0
-                                ? quiz.example
-                                : '예문이 없습니다'}
+                    <div className="flex h-full flex-col justify-center gap-y-10 overflow-hidden">
+                        <div className="no-scrollbar flex min-h-48 items-center justify-center overflow-y-auto rounded-lg bg-[#DBE9FE] p-4 text-3xl font-semibold">
+                            {quiz.question}
                         </div>
                         <div className="flex flex-wrap justify-between gap-y-6">
                             {quiz.options.map((item, index) => (
                                 <div
                                     key={index}
-                                    className={`w-5/12 cursor-pointer rounded-lg bg-[#E5E7EB] py-4 text-center ${isCorrect === 'answer' && item === quiz.answer ? 'text-blue-500' : isCorrect !== '' && item === isCorrect ? 'text-red-500' : ''}`}
+                                    className={`w-[45%] cursor-pointer rounded-lg bg-[#E5E7EB] p-4 text-center ${isCorrect === 'answer' && item === quiz.answer ? 'text-blue-500' : isCorrect !== '' && item === isCorrect ? 'text-red-500' : ''}`}
                                     onClick={(e) => {
                                         evaluate(e, item, quiz.answer)
                                     }}
@@ -165,7 +145,7 @@ export default function SentenceQuizPage() {
                                 nextQuiz()
                             }}
                         />
-                    </div>{' '}
+                    </div>
                 </>
             )}
         </div>

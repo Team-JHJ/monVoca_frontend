@@ -76,7 +76,7 @@ export default function VocaCheckPage() {
     }, [quizList, quizIndex])
 
     return (
-        <div className="flex h-full w-full flex-col p-4">
+        <div className="flex h-full w-full flex-col break-all p-4">
             {isLoading ? (
                 <Loading />
             ) : (

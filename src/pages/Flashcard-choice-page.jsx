@@ -4,7 +4,6 @@ export default function FlashcardChoicePage() {
     const navigate = useNavigate()
     const location = useLocation()
     const subject = location.state
-    console.log(subject)
 
     const select = (choice) => {
         if (subject === '단어카드') {

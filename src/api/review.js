@@ -16,8 +16,12 @@ const review = {
     },
 
     // 단어 선택 퀴즈
-    getSelectQuiz: (data) => {
-        return axiosInstance.post('/selectQuestions', data)
+    getSelectQuiz: (language, userName, noteId) => {
+        return axiosInstance.post('/selectQuestions', {
+            language,
+            userName,
+            noteId,
+        })
     },
 }
 
