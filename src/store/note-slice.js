@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    noteId: '',
-    noteTitle: '',
+    noteId: '673ee5a50a27730ccd921926',
+    noteTitle: '과일',
 }
 
 const noteSlice = createSlice({
