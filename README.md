@@ -74,3 +74,5 @@ src/
 
 
 ## 🎥 시연 영상
+
+https://github.com/user-attachments/assets/2300d228-fa23-4309-81e1-4985730568cf
